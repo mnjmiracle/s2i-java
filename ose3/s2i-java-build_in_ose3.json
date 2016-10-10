@@ -187,6 +187,7 @@
                      "sourceStrategy": {
                         "from": {
                            "kind": "ImageStreamTag",
+                           "namespace": "openshift",
                            "name": "s2i-java:latest"
                         }
                      }
@@ -425,6 +426,7 @@
                      "sourceStrategy": {
                         "from": {
                            "kind": "ImageStreamTag",
+                           "namespace": "openshift",
                            "name": "s2i-java:latest"
                         }
                      }
