@@ -33,7 +33,7 @@
             "source": {
                "type": "Git",
                "git": {
-                  "uri": "https://github.com/jorgemoralespou/s2i-java.git",
+                  "uri": "https://github.com/Saphri/s2i-java.git",
                   "ref": "master"
                }
             },
@@ -42,7 +42,7 @@
                "dockerStrategy": {
                   "from": {
                      "kind": "ImageStreamTag",
-                     "name": "centos:centos7"
+                     "name": "openshift:base-centos7"
                   }
                }
             },
@@ -62,7 +62,7 @@
             "name": "centos"
          },
          "spec": {
-            "dockerImageRepository": "library/centos:centos7"
+            "dockerImageRepository": "openshift/base-centos7:latest"
          }
       },
       {
