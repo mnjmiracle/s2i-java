@@ -1,6 +1,6 @@
 # s2i-java
 FROM openshift/base-centos7
-MAINTAINER Jorge Morales <jmorales@redhat.com>
+MAINTAINER Martin Nyholm Jelle <mnj@miracle.dk>
 # HOME in base image is /opt/app-root/src
 
 # Install build tools on top of base image
@@ -28,13 +28,18 @@ RUN curl -sL -0 https://services.gradle.org/distributions/gradle-${GRADLE_VERSIO
     mv /usr/local/gradle-${GRADLE_VERSION} /usr/local/gradle && \
     ln -sf /usr/local/gradle/bin/gradle /usr/local/bin/gradle
 
+ENV PROTOC_VERSION 3.1.0
+RUN	curl -sL -0 https://github.com/google/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip -o /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+	unzip /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip -d /usr/local/protoc && \
+    rm /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
+    ln -sf /usr/local/protoc/bin/protoc /usr/local/bin/protoc
+
 ENV PATH=/opt/maven/bin/:/opt/gradle/bin/:$PATH
 
 ENV BUILDER_VERSION 1.0
 
 LABEL io.k8s.description="Platform for building Java (fatjar) applications with maven or gradle" \
       io.k8s.display-name="Java S2I builder 1.0" \
-      io.openshift.expose-services="8080:http" \
       io.openshift.tags="builder,maven-3,gradle-2.6,java,microservices,fatjar"
 
 # TODO (optional): Copy the builder files into /opt/openshift
@@ -49,9 +54,6 @@ RUN chown -R 1001:1001 /opt/openshift
 
 # This default user is created in the openshift/base-centos7 image
 USER 1001
-
-# Set the default port for applications built using this image
-EXPOSE 8080
 
 # Set the default CMD for the image
 # CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/openshift/app.jar"]
