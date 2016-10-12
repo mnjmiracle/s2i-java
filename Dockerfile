@@ -35,7 +35,7 @@ RUN curl -sL -0 https://github.com/google/protobuf/releases/download/v${PROTOC_V
     rm /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
     ln -sf /usr/local/protoc/bin/protoc /usr/local/bin/protoc
 
-ENV PATH=/opt/maven/bin/:/opt/gradle/bin/:/usr/local/protoc/bin/:$PATH
+ENV PATH=/opt/maven/bin/:/opt/gradle/bin/:$PATH
 
 ENV BUILDER_VERSION 1.0
 
@@ -55,8 +55,6 @@ RUN chown -R 1001:1001 /opt/openshift
 
 # This default user is created in the openshift/base-centos7 image
 USER 1001
-
-RUN protoc --version
 
 # Set the default CMD for the image
 # CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/openshift/app.jar"]
