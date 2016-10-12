@@ -45,7 +45,7 @@ if [ -f "$LOCAL_SOURCE_DIR/pom.xml" ]; then
 
   pushd $LOCAL_SOURCE_DIR &> /dev/null
 
-  MAVEN_ARGS=${MAVEN_ARGS--e -Popenshift -DskipTests -Dcom.redhat.xpaas.repo.redhatga package}
+  MAVEN_ARGS=${MAVEN_ARGS--e -Popenshift -DskipTests package}
 
   # Always force IPv4 (CLOUD-188)
   # Append user-supplied arguments (CLOUD-412)
