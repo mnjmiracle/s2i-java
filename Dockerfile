@@ -8,6 +8,7 @@ MAINTAINER Martin Nyholm Jelle <mnj@miracle.dk>
 RUN INSTALL_PKGS="tar unzip bc which lsof java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
+	yum update -y && \
     yum clean all -y && \
     mkdir -p /opt/openshift && \
     mkdir -p /opt/app-root/source && chmod -R a+rwX /opt/app-root/source && \
@@ -40,7 +41,7 @@ ENV BUILDER_VERSION 1.0
 
 LABEL io.k8s.description="Platform for building Java (fatjar) applications with maven or gradle" \
       io.k8s.display-name="Java S2I builder 1.0" \
-      io.openshift.tags="builder,maven-3,gradle-2.6,java,microservices,fatjar"
+      io.openshift.tags="builder,maven-3,gradle-2.6,java,protoc,microservices,fatjar"
 
 # TODO (optional): Copy the builder files into /opt/openshift
 # COPY ./<builder_folder>/ /opt/openshift/
@@ -54,6 +55,8 @@ RUN chown -R 1001:1001 /opt/openshift
 
 # This default user is created in the openshift/base-centos7 image
 USER 1001
+
+RUN protoc --version
 
 # Set the default CMD for the image
 # CMD ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/opt/openshift/app.jar"]
