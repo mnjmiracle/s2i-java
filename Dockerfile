@@ -33,8 +33,7 @@ ENV PROTOC_VERSION 3.1.0
 RUN curl -sL -0 https://github.com/google/protobuf/releases/download/v${PROTOC_VERSION}/protoc-${PROTOC_VERSION}-linux-x86_64.zip -o /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
     unzip /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip -d /usr/local/protoc && \
     rm /tmp/protoc-${PROTOC_VERSION}-linux-x86_64.zip && \
-    ln -sf /usr/local/protoc/bin/protoc /usr/local/bin/protoc && \
-	chmod a+x /usr/local/bin/protoc
+    ln -sf /usr/local/protoc/bin/protoc /usr/local/bin/protoc
 
 ENV PATH=/opt/maven/bin/:/opt/gradle/bin/:$PATH
 
