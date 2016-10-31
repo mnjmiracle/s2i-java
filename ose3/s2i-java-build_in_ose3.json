@@ -6,10 +6,51 @@
    },
    "items": [
       {
+         "kind": "ImageStream",
+         "apiVersion": "v1",
+         "metadata": {
+            "name": "centos"
+         },
+         "labels": {
+            "app": "s2i-java"
+         },
+         "spec": {
+            "dockerImageRepository": "openshift/base-centos7:latest"
+         }
+      },
+      {
+         "kind": "ImageStream",
+         "apiVersion": "v1",
+         "metadata": {
+            "name": "s2i-java"
+         },
+         "labels": {
+            "app": "s2i-java"
+         },
+         "spec": {
+            "dockerImageRepository": "",
+            "tags": [
+               {
+                  "name": "latest",
+                  "annotations": {
+                     "description": "Java OpenJDK S2I image",
+                     "iconClass": "icon-jboss",
+                     "tags": "java,maven,gradle,springboot,protoc,fatjar",
+                     "supports": "java:8,maven:3,gradle:2.6,protoc:3.1",
+                     "version": "1.0"
+                  }
+               }
+            ]
+         }
+      },
+      {
          "kind": "BuildConfig",
          "apiVersion": "v1",
          "metadata": {
             "name": "s2i-java"
+         },
+         "labels": {
+            "app": "s2i-java"
          },
          "spec": {
             "triggers": [
@@ -56,58 +97,26 @@
          }
       },
       {
-         "kind": "ImageStream",
-         "apiVersion": "v1",
-         "metadata": {
-            "name": "centos"
-         },
-         "spec": {
-            "dockerImageRepository": "openshift/base-centos7:latest"
-         }
-      },
-      {
-         "kind": "ImageStream",
-         "apiVersion": "v1",
-         "metadata": {
-            "name": "s2i-java"
-         },
-         "spec": {
-            "dockerImageRepository": "",
-            "tags": [
-               {
-                  "name": "latest",
-                  "annotations": {
-                     "description": "Java OpenJDK S2I image",
-                     "iconClass": "icon-java",
-                     "tags": "builder,java,maven,gradle,springboot,vertx,wildfly-swarm,dropwizard,microservices,fatjar",
-                     "supports": "java:8,maven:3,gradle:2.6",
-                     "version": "1.0"
-                  }
-               }
-            ]
-         }
-      },
-      {
          "kind": "Template",
          "apiVersion": "v1",
          "metadata": {
-            "name": "springboot-helloworld-maven",
+            "name": "springboot-maven",
             "annotations": {
-               "description": "Sample Spring Boot helloworld built with maven",
-               "iconClass": "icon-java",
-               "tags": "instant-app,springboot,maven,java"
+               "description": "Spring Boot project built with maven",
+               "iconClass": "icon-jboss",
+               "tags": "quickstart,springboot,maven,java,protoc"
             }
-
          },
          "labels": {
-            "application": "springboot-helloworld-maven",
-            "createdBy": "template-springboot-helloworld-maven"
+            "application": "springboot-maven",
+			"app": "s2i-java",
+            "createdBy": "template-springboot-maven"
          },
          "parameters": [
             {
                "description": "The name for the application.",
                "name": "APPLICATION_NAME",
-               "value": "helloworld-mvn",
+               "value": "mvn",
                "displayName": "Application name",
                "required": true
             },
@@ -334,23 +343,24 @@
          "kind": "Template",
          "apiVersion": "v1",
          "metadata": {
-            "name": "springboot-helloworld-gradle",
+            "name": "springboot-gradle",
             "annotations": {
-               "description": "Sample Spring Boot helloworld built with gradle",
+               "description": "Spring Boot project built with gradle",
                "iconClass": "icon-jboss",
-               "tags": "instant-app,springboot,gradle,java"
+               "tags": "quickstart,springboot,gradle,java,protoc"
             }
 
          },
          "labels": {
-            "application": "springboot-helloworld-gradle",
-            "createdBy": "template-springboot-helloworld-gradle"
+            "application": "springboot-gradle",
+			"app": "s2i-java",
+            "createdBy": "template-springboot-gradle"
          },
          "parameters": [
             {
                "description": "The name for the application.",
                "name": "APPLICATION_NAME",
-               "value": "helloworld-gradle",
+               "value": "gradle",
                "displayName": "Application name",
                "required": true
             },
