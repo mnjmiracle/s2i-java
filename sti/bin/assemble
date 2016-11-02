@@ -18,7 +18,6 @@ if compgen -G "/tmp/src/*" >/dev/null; then
   cp -ad /tmp/src/* $LOCAL_SOURCE_DIR
 fi
 
-
 if [ -d $LOCAL_SOURCE_DIR/configuration ]; then
   echo "Copying config files from project..."
 
@@ -32,9 +31,10 @@ if [ -d $LOCAL_SOURCE_DIR/configuration ]; then
 fi
 
 configure_proxy
-configure_mirrors
 
 manage_incremental_build
+
+configure_mirrors
 
 # If a pom.xml is present, this is a normal build scenario
 # so run maven.
@@ -105,7 +105,6 @@ elif [ -f "$LOCAL_SOURCE_DIR/build.gradle" ]; then
   # (or $ARTIFACT_DIR if specified)
   # to the $DEPLOY_DIR directory for later deployment
   copy_artifacts "$ARTIFACT_DIR" jar
-
 
   # clean up after maven
   gradle clean

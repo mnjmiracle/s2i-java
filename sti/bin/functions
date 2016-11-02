@@ -36,7 +36,6 @@ function configure_mirrors() {
   fi
 }
 
-
 function copy_artifacts() {
   dir=$1
   types=
