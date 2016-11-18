@@ -4,7 +4,7 @@ MAINTAINER Martin Nyholm Jelle <mnj@miracle.dk>
 # HOME in base image is /opt/app-root/src
 
 # Install build tools on top of base image
-# Java jdk 8, Maven 3.3, Gradle 2.6
+# Java jdk 8, Maven 3.3, Gradle 3.2
 RUN INSTALL_PKGS="tar unzip bc which lsof java-1.8.0-openjdk java-1.8.0-openjdk-devel" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
@@ -41,7 +41,7 @@ ENV BUILDER_VERSION 1.0
 
 LABEL io.k8s.description="Platform for building Java (fatjar) applications with maven or gradle" \
       io.k8s.display-name="Java S2I builder 1.0" \
-      io.openshift.tags="builder,maven-3,gradle-2.6,java,protoc,microservices,fatjar"
+      io.openshift.tags="builder,maven-3,gradle-3.2,java,protoc,microservices,fatjar"
 
 # TODO (optional): Copy the builder files into /opt/openshift
 # COPY ./<builder_folder>/ /opt/openshift/
